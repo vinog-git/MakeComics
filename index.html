@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			@media print {
+			img { 
+			page-break-before: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+			page-break-after: auto; /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+			page-break-inside: avoid;
+			max-height:100%;
+			}
+			.hideinprint{
+			display:none;
+			}
+			}
+			datalist {display: inline-block;}
+			input[type="text"]{
+			appearance:none;
+			-moz-appearance:none;
+			-webkit-appearance:none;
+			border:1px solid #acacac;
+			padding:5px;}
+			img{
+			max-width:100%;
+			margin-bottom:15px;
+			height:auto;
+			border:1px solid black;
+			}
+			.common{margin-top:50px;text-align:center;border:1px solid #efefef;border-top:0;}
+		</style>
+		<title>My Comics</title>
+	</head>
+	<body ng-app="app" ng-controller="imgCtrl" style="margin: 0 auto;">
+		<div class="hideinprint" style="background:#efefef; padding:5px;text-align: center">
+			<div class="hideinprint" style="color:#acacac; font-family:helvetica,sans-serif;font-size:.7em;margin:5px;">NOTE: While renaming the files, select the last file then 'SHIFT + select the first image file', then rename to maintain order.</div>
+			<form ng-submit="getImages()" novalidate name="myForm">
+				<input required type="text" ng-model="baseURL" placeholder="Image file template name" style="width:250px;overflow:hidden;" ng-model-options="{updateOn: 'blur'}" autofocus> - 
+				<input required type="text" ng-model="extension" placeholder="extension">
+				<input required type="number" ng-model="start" placeholder="Start from 2" value=2 min="0"> - 
+				<input required type="number" ng-model="end" placeholder="Number of pages" min="0">
+				<input required type="submit" value="Get Images" ng-disabled="myForm.$invalid">
+				<div class="hideinprint" style="color:#acacac; font-family:helvetica,sans-serif;font-size:.7em;margin:5px;">Image-Size: (to avoid page break while printing/saving PDF)</div>
+				<input type="range" min="10" max="100" value="100" ng-model="slider">
+			</form>
+		</div>
+		<div class="hideinprint common" style="color:red;" ng-if="myForm.$invalid"> Enter valid details for all fields</div>
+		<div class="hideinprint common" style="color:green;" ng-if="myForm.$valid && !myForm.$submitted"> Click submit to get the images</div>
+		<div class="common" style="border-top:0;" ng-if="myForm.$valid && myForm.$submitted">
+			<div class="hideinprint" style="color:#acacac; font-family:helvetica,sans-serif;font-size:.7em;margin:5px;">Cover</div>
+			<img src="{{baseURL1}}.{{extension1}}" style="max-width:{{slider}}%">
+			<div ng-repeat="result in results">
+				<div class="hideinprint" style="color:#acacac; font-family:helvetica,sans-serif;font-size:.7em;margin:5px;">Page - {{$index + 1}}</div>
+				<img src="{{result}}" style="max-width:{{slider}}%">
+			</div>
+		</div>
+		<script src="angular.min.js"></script>
+		<script>
+			var app = angular.module('app',[]);
+			app.controller('imgCtrl',['$scope',function($scope){
+			$scope.getImages = function(baseURL,start,end,extension){
+			$scope.baseURL1= $scope.baseURL;
+			$scope.extension1= $scope.extension;
+			$scope.results = [];
+				for(i=$scope.start; i<=$scope.end; i++){
+					$scope.results.push($scope.baseURL + ' ('+i+').'+$scope.extension);		
+				}
+				return $scope.results;
+			}
+			}]);
+			
+		</script>
+	</body>
+</html>
