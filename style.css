@@ -1,0 +1,21 @@
+#img-container img {
+    width: calc(100vw - 15px);
+}
+
+img[src=""] {
+    display: none;
+}
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    img {
+        page-break-before: auto;
+        /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+        page-break-after: auto;
+        /* 'always,' 'avoid,' 'left,' 'inherit,' or 'right' */
+        page-break-inside: avoid;
+        /* or 'auto' */
+    }
+}
