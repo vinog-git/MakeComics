@@ -1,0 +1,23 @@
+{
+  "name": "makecomics",
+  "version": "1.0.0",
+  "description": "Read comics images by scrolling through them like a web page gallery",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinog-git/MakeComics.git"
+  },
+  "author": "Vinoth G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinog-git/MakeComics/issues"
+  },
+  "homepage": "https://github.com/vinog-git/MakeComics#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1"
+  }
+}
